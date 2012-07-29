@@ -1,17 +1,18 @@
-package bresenham;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.util.Random;
 
-public class Bresenham extends JPanel {
+public class BresenhamJorman extends JPanel {
 
   public static int w, h, c;
+  static int skip = 5 ;
 
   public void set_screen_size() {
     Dimension size = getSize();
@@ -30,7 +31,7 @@ public class Bresenham extends JPanel {
     Dimension p1 = new Dimension(0,0);
     Dimension p2 = new Dimension(c,0);
     
-    int skip = 5;
+    //int skip = 5;
     for( int i = 0; i < w; i+=skip ){
       g2d.setColor(Color.blue);
       p1.setSize(i,0);
@@ -104,9 +105,15 @@ public class Bresenham extends JPanel {
   public static void main(String[] args) {
     JFrame frame = new JFrame("Points");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.add(new Bresenham());
+    int x =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el incremento en X y Y " + " este debe ser un numero entre 0-100"));
+	setskip(x);
+    frame.add(new BresenhamJorman());
     frame.setSize(800, 800);
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
+  }
+
+  private static void setskip(int x) {
+	skip = x ;
   }
 }
