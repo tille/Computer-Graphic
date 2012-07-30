@@ -30,7 +30,7 @@ public class Bresenham extends JPanel {
     Dimension p1 = new Dimension(0,0);
     Dimension p2 = new Dimension(c,0);
     
-    int skip = 5;
+    int skip = 10;
     for( int i = 0; i < w; i+=skip ){
       g2d.setColor(Color.blue);
       p1.setSize(i,0);
