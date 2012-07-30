@@ -12,10 +12,10 @@ public class BresenhamJuan extends JPanel  {
 
   public static int w, h, c;
   private static int skip =1;
-  public static Panel panel ;
+  public static JPanel panel ;
   
   public static void setskip(int x){
-	  skip = x ;
+    skip = x ;
   }
   
   public void set_screen_size() {
@@ -108,12 +108,11 @@ public class BresenhamJuan extends JPanel  {
   public static void main(String[] args) {
     JFrame frame = new JFrame("Points");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	int x =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el incremento en X y Y " + " este debe ser un numero entre 0-100"));
-	setskip(x);
+    int x =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el incremento en X y Y " + " este debe ser un numero entre 0-100"));
+    setskip(x);
     frame.add(new BresenhamJuan());
     frame.setSize(800, 800);
     frame.setLocationRelativeTo(null);
-
     frame.setVisible(true);
   }
 }
