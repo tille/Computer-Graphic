@@ -12,13 +12,14 @@ import java.math.*;
 
 public class Cohen_sutherland extends JPanel {
 
-  public static int w, h, c, left = 200, right = 600, down = 350, top = 100;
+  public static int left = 200, right = 600, down = 350, top = 100;
   
-  public void set_screen_size() {
-    Dimension size = getSize();
-    Insets insets = getInsets();
-    w = size.width - insets.left - insets.right;
-    h = size.height - insets.top - insets.bottom;
+  @Override
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    Graphics2D g2d = (Graphics2D) g;
+    add_lines(g2d);
+    draw_clipping_area(g2d);
   }
   
   public void draw_clipping_area(Graphics2D g2d){
@@ -34,15 +35,13 @@ public class Cohen_sutherland extends JPanel {
         p1.width > right && p2.width > right ||
         p1.height < top  && p2.height < top  ||
         p1.height > down && p2.height > down ) return false;
-    return true;
-    
+    return true;  
   }
   
   void add_lines(Graphics2D g2d){
     g2d.setColor(Color.red);
     
-    for( int i = 0; i < 10; ++i ){
-    
+    for( int i = 0; i < 300; ++i ){
       Random rand = new Random();
       Dimension p1 = new Dimension(rand.nextInt(800),rand.nextInt(500));
       Dimension p2 = new Dimension(rand.nextInt(800),rand.nextInt(500));
@@ -51,15 +50,6 @@ public class Cohen_sutherland extends JPanel {
       if(outside) cohen_sutherland(p1,p2, g2d);
       else g2d.drawLine(p1.width, p1.height, p2.width, p2.height);
     }
-  }
-  
-  @Override
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g;
-    set_screen_size();
-    draw_clipping_area(g2d);
-    add_lines(g2d);
   }
   
   double dist(Dimension p1, Dimension p2){
@@ -76,7 +66,6 @@ public class Cohen_sutherland extends JPanel {
   }
   
   Dimension intersection(Dimension pi, Dimension pf, int i){
-
     int x0 = pi.width;
     int x1 = pf.width;
     int y0 = pi.height;
