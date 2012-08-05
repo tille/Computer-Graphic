@@ -144,7 +144,7 @@ public class Cohen_sutherland extends JPanel {
       g2d.setColor(Color.blue);
       g2d.drawLine(cpy1.width, cpy1.height, cpy2.width, cpy2.height);
       g2d.setColor(Color.red);
-      g2d.drawLine(cpy2.width, cpy2.height, p2.width, p2.height);
+      if(cpy2 != p2) g2d.drawLine(cpy2.width, cpy2.height, p2.width, p2.height);
     }
   }
   

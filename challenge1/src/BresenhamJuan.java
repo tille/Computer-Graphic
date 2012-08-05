@@ -1,18 +1,23 @@
-package bresenham;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import java.util.Random;
 
-public class Bresenham extends JPanel {
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class BresenhamJuan extends JPanel  {
 
   public static int w, h, c;
-
+  private static int skip =1;
+  public static JPanel panel ;
+  
+  public static void setskip(int x){
+    skip = x ;
+  }
+  
   public void set_screen_size() {
     Dimension size = getSize();
     Insets insets = getInsets();
@@ -30,26 +35,24 @@ public class Bresenham extends JPanel {
     Dimension p1 = new Dimension(0,0);
     Dimension p2 = new Dimension(c,0);
     
-    int skip = 10;
     for( int i = 0; i < w; i+=skip ){
-      g2d.setColor(Color.blue);
-      p1.setSize(i,0);
-      p2.setSize(w,i);
+      g2d.setColor(Color.black);
+      p1.setSize(i/2,(0+h)/2);
+      p2.setSize(w/2,(i+h)/2);
       bresenham_line(p1,p2,g2d);
 
-      g2d.setColor(Color.red);
-      p1.setSize(w,i);
-      p2.setSize(w-i,h);
+      //g2d.setColor(Color.green);
+
+      p1.setSize(w/2,i/2);
+      p2.setSize((w-i)/2,h/2);
       bresenham_line(p1,p2,g2d);
       
-      g2d.setColor(Color.black);
-      p1.setSize(w-i,h);
-      p2.setSize(0,h-i);
+      p1.setSize(((w-i)+w)/2,h/2);
+      p2.setSize((0+w)/2,(h-i)/2);
       bresenham_line(p1,p2,g2d);
       
-      g2d.setColor(Color.orange);
-      p1.setSize(0,h-i);
-      p2.setSize(i,0);
+      p1.setSize((0+w)/2,((h-i)+h)/2);
+      p2.setSize((i+w)/2,(0+h)/2);
       bresenham_line(p1,p2,g2d);
     }
   }
@@ -100,12 +103,15 @@ public class Bresenham extends JPanel {
       }
     }
   }
-
+  
+  
   public static void main(String[] args) {
     JFrame frame = new JFrame("Points");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.add(new Bresenham());
-    frame.setSize(600, 600);
+    int x =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el incremento en X y Y " + " este debe ser un numero entre 0-100"));
+    setskip(x);
+    frame.add(new BresenhamJuan());
+    frame.setSize(800, 800);
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
   }
