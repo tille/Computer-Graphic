@@ -22,7 +22,7 @@ public class Cohen_sutherland extends JPanel {
   }
   
   public void draw_clipping_area(Graphics2D g2d){
-    g2d.setColor(Color.black);
+    g2d.setColor(Color.green);
     g2d.drawLine(left, top, right, top);
     g2d.drawLine(left, down, right, down);
     g2d.drawLine(left, down, left, top);
@@ -39,13 +39,18 @@ public class Cohen_sutherland extends JPanel {
   }
   
   void add_lines(Graphics2D g2d){
-    Dimension p1 = new Dimension(50,250);
-    Dimension p2 = new Dimension(250,250);
     g2d.setColor(Color.red);
     
-    boolean outside = trivial_validations(p1,p2);
-    if(outside) cohen_sutherland(p1,p2, g2d);
-    else g2d.drawLine(p1.width, p1.height, p2.width, p2.height);
+    for( int i = 0; i < 10; ++i ){
+    
+      Random rand = new Random();
+      Dimension p1 = new Dimension(rand.nextInt(800),rand.nextInt(500));
+      Dimension p2 = new Dimension(rand.nextInt(800),rand.nextInt(500));
+
+      boolean outside = trivial_validations(p1,p2);
+      if(outside) cohen_sutherland(p1,p2, g2d);
+      else g2d.drawLine(p1.width, p1.height, p2.width, p2.height);
+    }
   }
   
   @Override
@@ -138,17 +143,18 @@ public class Cohen_sutherland extends JPanel {
       g2d.drawLine(p1.width, p1.height, cpy1.width, cpy1.height);
       g2d.setColor(Color.blue);
       g2d.drawLine(cpy1.width, cpy1.height, cpy2.width, cpy2.height);
-      g2d.setColor(Color.black);
+      g2d.setColor(Color.red);
       g2d.drawLine(cpy2.width, cpy2.height, p2.width, p2.height);
     }
   }
   
   public static void main(String[] args) {
-    JFrame frame = new JFrame("Points");
+    JFrame frame = new JFrame("Cohen Sutherland Algorithm");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(new Cohen_sutherland());
     frame.setSize(800, 500);
     frame.setLocationRelativeTo(null);
-    frame.setVisible(true);    
+    frame.setVisible(true);
+    frame.setBackground(Color.black);
   }
 }
