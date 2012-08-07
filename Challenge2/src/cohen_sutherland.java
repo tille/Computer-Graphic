@@ -41,7 +41,7 @@ public class Cohen_sutherland extends JPanel {
   void add_lines(Graphics2D g2d){
     g2d.setColor(Color.red);
     
-    for( int i = 0; i < 300; ++i ){
+    for( int i = 0; i < 100; ++i ){
       Random rand = new Random();
       Dimension p1 = new Dimension(rand.nextInt(800),rand.nextInt(500));
       Dimension p2 = new Dimension(rand.nextInt(800),rand.nextInt(500));
