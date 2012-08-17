@@ -1,22 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Principal extends JFrame {
 
   BottonPanel bp ;
+  panelPrincipal pp ;
 
   public Principal() {
-    bp = new BottonPanel() ;
+    bp = new BottonPanel(this) ;
+    pp = new panelPrincipal();
     this.setLayout(new BorderLayout()) ;
-    this.setSize(1100, 700) ;
+    this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width - 50, 
+    		Toolkit.getDefaultToolkit().getScreenSize().height - 50) ;
     this.setLocationRelativeTo(null) ;
     this.setDefaultCloseOperation(EXIT_ON_CLOSE) ;
-    this.setResizable(false);
+    this.setResizable(true);
     add(bp, BorderLayout.SOUTH) ;
+    add(pp , BorderLayout.CENTER) ;
   }
 
   public static void main (String args []){
     Principal principal = new Principal();
     principal.setVisible(true) ;
   }
+
+public void paintEverything(ArrayList<int[]> listaPuntos) {
+	pp.paintEverything(listaPuntos);
+	
+}
 }
