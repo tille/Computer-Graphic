@@ -9,7 +9,6 @@ public class BottonPanel extends JPanel implements ActionListener {
 	
 	private boolean  translateT , scalate ;
 	JButton rotate, translate, scalation,addpoint ;
-	JTextField rAngle, translateX, translateY , scalateX, scalateY ;
 	ArrayList <int []> listaPuntos = new ArrayList();
 	Principal p;
 	
@@ -32,17 +31,10 @@ public class BottonPanel extends JPanel implements ActionListener {
 		addpoint.setActionCommand("ADD") ;
 		addpoint.addActionListener(this) ;
 		
-		rAngle = new JTextField();
-		translateX = new JTextField();
-		translateY = new JTextField();
-		scalateX = new JTextField();
-		scalateY = new JTextField();
-		
 		add(addpoint);
 		add(translate) ;
 		add(scalation) ;
 		add(rotate) ;
-//		add(rAngle) ;
 	}
 	public int [] transformar(int a [] ,double x , double y ){
 		if(translateT){
@@ -73,6 +65,7 @@ public class BottonPanel extends JPanel implements ActionListener {
 		    	
 		    	try {
 		    		double x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el angulo de rotación")) ;
+		    		x /= 180 ;
 		    		for (int i = 0; i < listaPuntos.size(); i++) {
 		    			arreglo = transformar( listaPuntos.get(i), x) ;
 		    			listaPuntos.set(i, arreglo) ;
