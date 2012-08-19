@@ -3,13 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class BottonPanel extends JPanel implements ActionListener {
 	
-	
+	private boolean  translateT , scalate ;
 	JButton rotate, translate, scalation,addpoint ;
 	JTextField rAngle, translateX, translateY , scalateX, scalateY ;
-	Transformaciones t ;
 	ArrayList <int []> listaPuntos = new ArrayList();
 	Principal p;
 	
@@ -28,7 +28,7 @@ public class BottonPanel extends JPanel implements ActionListener {
 		scalation.setActionCommand("SCALATE") ;
 		scalation.addActionListener(this) ;
 		
-		addpoint = new JButton("Add point") ;
+		addpoint = new JButton("ADD POINT") ;
 		addpoint.setActionCommand("ADD") ;
 		addpoint.addActionListener(this) ;
 		
@@ -42,52 +42,84 @@ public class BottonPanel extends JPanel implements ActionListener {
 		add(translate) ;
 		add(scalation) ;
 		add(rotate) ;
-		add(rAngle) ;
+//		add(rAngle) ;
+	}
+	public int [] transformar(int a [] ,double x , double y ){
+		if(translateT){
+			a [0] = (int) (a [0] + Math.round(x)) ;
+			a [1] = (int) (a[1] + Math.round(y)) ;
+			translateT = false ;
+			return a ;
+		}
+		if (scalate){
+			a [0] =(int) Math.round(x * a [0])  ;
+			a [1] = (int) Math.round(y * a [1]) ;
+			scalate = false ;
+			return a ;
+		}
+		return a ;
 	}
 	
+	public int [] transformar (int a [] , double angle){
+		a [0] = (int) Math.round(a[0] *Math.cos(angle) - (a[1] * Math.sin(angle))) ;
+		a [1] = (int) Math.round(a[0] *Math.sin(angle) + (a[1] * Math.cos(angle))) ;
+		return a ;
+	}
 	
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String comando = e.getActionCommand() ;
-		if (comando.equals("ROTATE")){
-			
-		}else if (comando.equals("TRANSLATE")) {
-			try {
-				
-				double x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el desplazamiento   X"));
-				double y =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el desplazamiento  Y"));
-				t.setTranslate(true) ;
-				for (int i = 0 ; i < this.listaPuntos.size() ; i ++ ){
-					listaPuntos.set(i, t.transformar(this.listaPuntos.get(i), x, y));
-				}
-				p.paintEverything(listaPuntos) ;
-
-			} catch (Exception exp){		
-		}
-			
-		}else if (comando.equals("SCALATE")){
-			try {
-				double x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el escalamiento  X"));
-				double y =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el escalamiento Y"));
-				this.t.setScalate(true) ;
-				for (int i = 0 ;  i < this.listaPuntos.size() ; i++ ){
-					listaPuntos.set(i, t.transformar(this.listaPuntos.get(i), x, y));
-				}
-				p.paintEverything(listaPuntos) ;
-
-			}catch(Exception exep) {}
-			
-		}else if (comando.equals("ADD")){
-			int arr [] = new int [3] ;
-			try {
-				arr[0] = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la coordenada en X"));
-				arr[1] =Integer.parseInt(JOptionPane.showInputDialog("Ingrese la coordenada en Y"));
-			}catch(Exception ecep) {}
-			arr[2] =1 ;
-			this.listaPuntos.add(arr) ;
+	  public void actionPerformed(ActionEvent e) {
+		    String comando = e.getActionCommand() ;
+		    int arreglo [] ;
+		    if (comando.equals("ROTATE")){
+		    	
+		    	try {
+		    		double x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el angulo de rotación")) ;
+		    		for (int i = 0; i < listaPuntos.size(); i++) {
+		    			arreglo = transformar( listaPuntos.get(i), x) ;
+		    			listaPuntos.set(i, arreglo) ;
+					}
+		    		arreglo = null;
+		    	}catch (Exception excep) {
+		    		JOptionPane.showMessageDialog(null, "Esto tiene error", "ERROR", JOptionPane.ERROR_MESSAGE) ;
+		    	}
+		      }else if (comando.equals("TRASLATE")) {
+		    	  try {
+		    		  
+		    		  double x = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el incremento en X")) ;
+		    		  double y = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el incremento en Y")) ;
+		    		  for (int i = 0; i < listaPuntos.size(); i++) {
+		    			  	translateT = true ;
+							arreglo = transformar(listaPuntos.get(i), x, y) ;
+							listaPuntos.set(i, arreglo) ;
+		    		  }
+		    		  arreglo = null ;
+		    	  }catch (Exception excep){
+			    		JOptionPane.showMessageDialog(null, "valores erroneos, verifique los datos", "ERROR", JOptionPane.ERROR_MESSAGE) ;
+		    	  }
+		        }else if (comando.equals("SCALATE")){
+		        	  try {
+			    		  
+			    		  double x = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el incremento en X")) ;
+			    		  double y = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el incremento en Y")) ;
+			    		  for (int i = 0; i < listaPuntos.size(); i++) {
+			    			  	scalate = true ;
+								arreglo = transformar(listaPuntos.get(i), x, y) ;
+								listaPuntos.set(i, arreglo) ;
+			    		  }
+			    		  arreglo = null ;
+			    	  }catch (Exception excep){
+				    		JOptionPane.showMessageDialog(null, "valores erroneos, verifique los datos", "ERROR", JOptionPane.ERROR_MESSAGE) ;
+			    	  }
+		          }else if (comando.equals("ADD")){
+		            int arr [] = new int [3] ;
+						try {
+							arr[0] = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la coordenada en X"));
+							arr[1] =Integer.parseInt(JOptionPane.showInputDialog("Ingrese la coordenada en Y"));
+						}catch(Exception ecep) {
+				    		JOptionPane.showMessageDialog(null, "valores erroneos, verifique los datos", "ERROR", JOptionPane.ERROR_MESSAGE) ;
+						}
+						arr[2] =1 ;
+						this.listaPuntos.add(arr) ;
+		          }
 			p.paintEverything(listaPuntos) ;
-			
-		}
-	}
+	  }
 }
