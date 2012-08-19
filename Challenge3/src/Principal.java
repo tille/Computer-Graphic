@@ -25,8 +25,8 @@ public class Principal extends JFrame {
     principal.setVisible(true) ;
   }
 
-public void paintEverything(ArrayList<int[]> listaPuntos) {
-	pp.paintEverything(listaPuntos);
+public void paintEverything(ArrayList<int[]> listaPuntos, boolean reset) {
+	pp.paintEverything(listaPuntos , reset);
 	
 }
 }

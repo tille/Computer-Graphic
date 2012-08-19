@@ -21,13 +21,21 @@ public class panelPrincipal extends JPanel {
 		repaint();
 	}
 
-	public void paintEverything(ArrayList<int[]> listaPuntos) {
+	public int paintEverything(ArrayList<int[]> listaPuntos , boolean reset) {
 		Graphics2D g2d = (Graphics2D)im.getGraphics();
 		g2d.setColor(Color.RED) ;
-		for (int i = 1; i <listaPuntos.size(); i++) {
-			g2d.drawLine(listaPuntos.get(i-1)[0], listaPuntos.get(i-1)[1], listaPuntos.get(i)[0], listaPuntos.get(i)[1]) ;
+		if (!reset){
+			for (int i = 1; i <listaPuntos.size(); i++) {
+				g2d.drawLine(listaPuntos.get(i-1)[0], listaPuntos.get(i-1)[1], listaPuntos.get(i)[0], listaPuntos.get(i)[1]) ;
+				repaint();
+			}
+			return 0 ;
 		}
+		im = null;
+		im = new BufferedImage(Toolkit.getDefaultToolkit().getScreenSize().width -55, 
+	    		Toolkit.getDefaultToolkit().getScreenSize().height - 80 , BufferedImage.BITMASK);
 		repaint();
+		return 0 ;
 	}
 	
 	@Override

@@ -7,8 +7,8 @@ import java.util.Iterator;
 
 public class BottonPanel extends JPanel implements ActionListener {
 	
-	private boolean  translateT , scalate ;
-	JButton rotate, translate, scalation,addpoint ;
+	private boolean  translateT , scalate, Reset ;
+	JButton rotate, translate, scalation,addpoint , reset ;
 	ArrayList <int []> listaPuntos = new ArrayList();
 	Principal p;
 	
@@ -31,10 +31,15 @@ public class BottonPanel extends JPanel implements ActionListener {
 		addpoint.setActionCommand("ADD") ;
 		addpoint.addActionListener(this) ;
 		
+		reset = new JButton("RESET") ;
+		reset.setActionCommand("RESET") ;
+		reset.addActionListener(this) ;
+		
 		add(addpoint);
 		add(translate) ;
 		add(scalation) ;
 		add(rotate) ;
+		add(reset) ;
 	}
 	public int [] transformar(int a [] ,double x , double y ){
 		if(translateT){
@@ -64,7 +69,7 @@ public class BottonPanel extends JPanel implements ActionListener {
 		    if (comando.equals("ROTATE")){
 		    	
 		    	try {
-		    		double x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el angulo de rotación")) ;
+		    		double x = Integer.parseInt(JOptionPane.showInputDialog("Insert the rotation angle")) ;
 		    		x /= 180 ;
 		    		for (int i = 0; i < listaPuntos.size(); i++) {
 		    			arreglo = transformar( listaPuntos.get(i), x) ;
@@ -72,13 +77,13 @@ public class BottonPanel extends JPanel implements ActionListener {
 					}
 		    		arreglo = null;
 		    	}catch (Exception excep) {
-		    		JOptionPane.showMessageDialog(null, "Esto tiene error", "ERROR", JOptionPane.ERROR_MESSAGE) ;
+		    		JOptionPane.showMessageDialog(null, "ERROR", "Insert a correct angle please", JOptionPane.ERROR_MESSAGE) ;
 		    	}
 		      }else if (comando.equals("TRASLATE")) {
 		    	  try {
 		    		  
-		    		  double x = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el incremento en X")) ;
-		    		  double y = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el incremento en Y")) ;
+		    		  double x = Double.parseDouble(JOptionPane.showInputDialog("Insert the increment in  X")) ;
+		    		  double y = Double.parseDouble(JOptionPane.showInputDialog("Insert the increment in  Y")) ;
 		    		  for (int i = 0; i < listaPuntos.size(); i++) {
 		    			  	translateT = true ;
 							arreglo = transformar(listaPuntos.get(i), x, y) ;
@@ -91,8 +96,8 @@ public class BottonPanel extends JPanel implements ActionListener {
 		        }else if (comando.equals("SCALATE")){
 		        	  try {
 			    		  
-			    		  double x = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el incremento en X")) ;
-			    		  double y = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el incremento en Y")) ;
+			    		  double x = Double.parseDouble(JOptionPane.showInputDialog("Insert the increment in  X")) ;
+			    		  double y = Double.parseDouble(JOptionPane.showInputDialog("Insert the increment in  Y")) ;
 			    		  for (int i = 0; i < listaPuntos.size(); i++) {
 			    			  	scalate = true ;
 								arreglo = transformar(listaPuntos.get(i), x, y) ;
@@ -100,19 +105,23 @@ public class BottonPanel extends JPanel implements ActionListener {
 			    		  }
 			    		  arreglo = null ;
 			    	  }catch (Exception excep){
-				    		JOptionPane.showMessageDialog(null, "valores erroneos, verifique los datos", "ERROR", JOptionPane.ERROR_MESSAGE) ;
+				    		JOptionPane.showMessageDialog(null, "Error in data input , try again", "ERROR", JOptionPane.ERROR_MESSAGE) ;
 			    	  }
 		          }else if (comando.equals("ADD")){
 		            int arr [] = new int [3] ;
 						try {
-							arr[0] = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la coordenada en X"));
-							arr[1] =Integer.parseInt(JOptionPane.showInputDialog("Ingrese la coordenada en Y"));
+							arr[0] = Math.round(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la coordenada en X")));
+							arr[1] =Math.round(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la coordenada en Y")));
 						}catch(Exception ecep) {
-				    		JOptionPane.showMessageDialog(null, "valores erroneos, verifique los datos", "ERROR", JOptionPane.ERROR_MESSAGE) ;
+				    		JOptionPane.showMessageDialog(null, "Error in data input, try again ", "ERROR", JOptionPane.ERROR_MESSAGE) ;
 						}
 						arr[2] =1 ;
 						this.listaPuntos.add(arr) ;
+		          }else if (comando.equals("RESET")) {
+		        	  listaPuntos =  new ArrayList();
+		        	  Reset = true ;
 		          }
-			p.paintEverything(listaPuntos) ;
+			p.paintEverything(listaPuntos , Reset) ;
+			Reset = false ;
 	  }
 }
