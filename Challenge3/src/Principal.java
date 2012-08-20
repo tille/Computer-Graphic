@@ -12,7 +12,7 @@ public class Principal extends JFrame {
     pp = new panelPrincipal();
     this.setLayout(new BorderLayout()) ;
     this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width - 50, 
-    		Toolkit.getDefaultToolkit().getScreenSize().height - 50) ;
+                 Toolkit.getDefaultToolkit().getScreenSize().height - 50);
     this.setLocationRelativeTo(null) ;
     this.setDefaultCloseOperation(EXIT_ON_CLOSE) ;
     this.setResizable(true);
@@ -25,8 +25,7 @@ public class Principal extends JFrame {
     principal.setVisible(true) ;
   }
 
-public void paintEverything(ArrayList<int[]> listaPuntos, boolean reset) {
-	pp.paintEverything(listaPuntos , reset);
-	
-}
+  public void paintEverything(ArrayList<int[]> listaPuntos, boolean reset) {
+    pp.paintEverything(listaPuntos , reset);
+  }
 }
