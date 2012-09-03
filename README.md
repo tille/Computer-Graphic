@@ -16,6 +16,4 @@ Challenge 3 - Cohen Sutherland algorithm
 
 Challenge 4 - Cohen Sutherland algorithm
 -----------
-[![Transformations 3D](https://github.com/Tille/Computer-Graphic/raw/master/challenge4/screenshots/proyections.png)](https://github.com/Tille/Computer-Graphic/blob/master/Challenge4/src/challenge4.cpp)
-
 [![Transformations 3D](https://github.com/Tille/Computer-Graphic/raw/master/challenge4/screenshots/proyections2.png)](https://github.com/Tille/Computer-Graphic/blob/master/Challenge4/src/challenge4.cpp)
