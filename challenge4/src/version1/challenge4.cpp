@@ -20,7 +20,7 @@ int n,n1,n2,edges;
 
 #define flt_max 3.402823466e+38F
 #define flt_min 1.175494351e-38F
-#define SIZE 100
+#define SIZE 20000
 #define SIZE_SCR 800
 #define pb push_back
 
@@ -77,28 +77,27 @@ void calc_center(){
     min_center_init_z = min( min_center_init_z, points[i].z );
   }
   
-  center_x = min_center_init_x + (max_center_init_x - min_center_init_x)/2;
-  center_y = min_center_init_y + (max_center_init_y - min_center_init_y)/2;
-  center_z = min_center_init_z + (max_center_init_z - min_center_init_z)/2;
+  center_x = min_center_init_x + ((max_center_init_x - min_center_init_x)/2);
+  center_y = min_center_init_y + ((max_center_init_y - min_center_init_y)/2);
+  center_z = min_center_init_z + ((max_center_init_z - min_center_init_z)/2);
 }
 
 void p_rotate(int opt){
   calc_center();
-  float c_x = center_x, c_y = center_y, c_z = center_z, d_x, d_y, d_z;  
+  float c_x = center_x, c_y = center_y, c_z = center_z, d_x, d_y, d_z, p_x, p_y, p_z;  
 
   for( int i = 0; i < points.size(); ++i ){
-    // Rotacion en X
+    
+    p_y = points[i].y, p_z = points[i].z, p_x = points[i].x;
     if(!opt){
-      points[i].y = points[i].y*cos(M_PI/10000.0) - points[i].z*sin(M_PI/10000.0);
-      points[i].z = points[i].z*cos(M_PI/10000.0) + points[i].y*sin(M_PI/10000.0);
-    }//Rotacion en Z
-    else if(opt==1){
-      points[i].x = points[i].x*cos(M_PI/360.0) - points[i].y*sin(M_PI/360.0);
-      points[i].y = points[i].y*cos(M_PI/360.0) + points[i].x*sin(M_PI/360.0);
-    } // Rotacion en Y
-    else if(opt==2){
-      points[i].x = points[i].x*cos(M_PI/10000.0) + points[i].z*sin(M_PI/10000.0);
-      points[i].z = points[i].z*cos(M_PI/10000.0) - points[i].x*sin(M_PI/10000.0);
+      points[i].y = p_y*cos(M_PI/360.0) - p_z*sin(M_PI/360.0);
+      points[i].z = p_z*cos(M_PI/360.0) + p_y*sin(M_PI/360.0);      
+    }else if(opt==1){
+      points[i].x = p_x*cos(M_PI/360.0) - p_y*sin(M_PI/360.0);
+      points[i].y = p_y*cos(M_PI/360.0) + p_x*sin(M_PI/360.0);
+    }else if(opt==2){
+      points[i].z = p_z*cos(M_PI/360.0) - p_x*sin(M_PI/360.0);
+      points[i].x = p_x*cos(M_PI/360.0) + p_z*sin(M_PI/360.0);
     }
   }
   calc_center();
@@ -191,8 +190,7 @@ void display(void) {
 
 // Entrada desde el archivo home.in
 void input_polyline(){
-  freopen("input/ch4_3.in","r",stdin);
-  
+  //freopen("input/sphere.in","r",stdin);
   cin >> n;
   for( int i = 1; i <= n; ++i ){
     cin >> x2 >> y2 >> z2;
