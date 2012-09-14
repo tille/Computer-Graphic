@@ -11,6 +11,7 @@ public class panelPrincipal extends JPanel {
   public panelPrincipal(){
     im = new BufferedImage(Toolkit.getDefaultToolkit().getScreenSize().width -55, 
       Toolkit.getDefaultToolkit().getScreenSize().height - 80 , BufferedImage.BITMASK);
+    setBackground(Color.BLACK) ;
   }
 
   public void refrescar (){
@@ -19,7 +20,7 @@ public class panelPrincipal extends JPanel {
 
   public int paintEverything(ArrayList<int[]> listaPuntos , boolean reset) {
     Graphics2D g2d = (Graphics2D)im.getGraphics();
-    g2d.setColor(Color.RED) ;
+    g2d.setColor(Color.GREEN) ;
     if (!reset){
       for (int i = 1; i <listaPuntos.size(); i++) {
         g2d.drawLine(listaPuntos.get(i-1)[0], listaPuntos.get(i-1)[1], listaPuntos.get(i)[0], listaPuntos.get(i)[1]);
@@ -39,5 +40,4 @@ public class panelPrincipal extends JPanel {
     super.paintComponent(g);
     g.drawImage(im,0,0,null);
   }
-
 }
