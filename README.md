@@ -8,6 +8,7 @@ Challenge 1 - Bresenham's algorithm
 
 Challenge 2 - Cohen Sutherland algorithm
 -----------
+[![Cohen Sutherland](https://github.com/Tille/Computer-Graphic/raw/master/Challenge2/screenshots/ss0.png)](https://github.com/Tille/Computer-Graphic/blob/master/Challenge2/src/cohen_sutherland.java)
 [![Cohen Sutherland](https://github.com/Tille/Computer-Graphic/raw/master/Challenge2/screenshots/ss1.png)](https://github.com/Tille/Computer-Graphic/blob/master/Challenge2/src/cohen_sutherland.java)
 [![Cohen Sutherland](https://github.com/Tille/Computer-Graphic/raw/master/Challenge2/screenshots/ss2.png)](https://github.com/Tille/Computer-Graphic/blob/master/Challenge2/src/cohen_sutherland.java)
 
