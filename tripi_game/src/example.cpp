@@ -3,14 +3,13 @@
 #include <OpenGL/glu.h>
 #include <GLUT/glut.h>
 
+
 #include <vector>
 #include <string>
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <limits>
-
-#include "operations.h"
 
 using namespace std;
 
