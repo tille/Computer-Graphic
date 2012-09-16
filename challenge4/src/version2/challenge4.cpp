@@ -95,21 +95,12 @@ void p_rotate2(int opt){
   
   for( int i = 0; i < points.size(); ++i ){
     p_y = points[i].y, p_z = points[i].z, p_x = points[i].x;
-    
     if(!opt){
-
-      cout << opt << endl;
-      cout << points[i].x << " " << points[i].y << " " << points[i].z << endl;
-      cout << sin(M_PI/6.0) << endl;
       points[i].y = p_y*cos(M_PI/360.0) - p_z*sin(M_PI/360.0);
       points[i].z = p_z*cos(M_PI/360.0) + p_y*sin(M_PI/360.0);      
-      cout << points[i].x << " " << points[i].y << " " << points[i].z << endl;
-
     }else if(opt==1){
-      
       points[i].x = p_x*cos(M_PI/360.0) - p_y*sin(M_PI/360.0);
       points[i].y = p_y*cos(M_PI/360.0) + p_x*sin(M_PI/360.0);
-            
     }else if(opt==2){
       points[i].z = p_z*cos(M_PI/360.0) - p_x*sin(M_PI/360.0);
       points[i].x = p_x*cos(M_PI/360.0) + p_z*sin(M_PI/360.0);
@@ -129,8 +120,8 @@ void p_translate(int opt){
     else if(opt==1) points[i].y -= 8;
     else if(opt==2) points[i].x -= 8;
     else if(opt==3) points[i].x += 8;
-    else if(opt==4) points[i].z -= .1;
-    else if(opt==5) points[i].z += .1;  
+    else if(opt==4) points[i].z -= 1;
+    else if(opt==5) points[i].z += 1;  
   }
 }
 
@@ -163,8 +154,8 @@ void specialKeys(int key, int x, int y) {
 void proyection(){
   proy.clear();
   for( int i = 0; i < n; ++i ){
-    float p_x = (points[i].x*70)/points[i].z;
-    float p_y = (points[i].y*70)/points[i].z;
+    float p_x = (points[i].x*100)/points[i].z;
+    float p_y = (points[i].y*100)/points[i].z;
     proy.pb(point(p_x,p_y,0));
   }
 }
