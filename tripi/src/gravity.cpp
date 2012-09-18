@@ -8,5 +8,4 @@ class Gravity {
 };
 
 void Gravity::verify() {
-  world.init();
 }

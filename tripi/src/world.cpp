@@ -17,5 +17,18 @@ void World::rotate() {
 }
 
 void World::init() {
-  cout << "hola mundo" << endl;
+  freopen("input/1.in","r",stdin);
+  string line;
+  
+  for( int j = 0; cin >> line; ++j ){
+    for( int i = 0; i < line.size(); ++i ){
+      if(line[i] == '1'){
+        Obstacle temp;
+        temp.set_obstacle(i,j);
+        obstacles.pb(temp);
+      }
+    }
+  }
+  
+  tripi.set_coordinates(0,0,3);
 }
