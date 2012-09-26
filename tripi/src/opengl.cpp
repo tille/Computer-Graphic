@@ -1,5 +1,6 @@
 Driver d;
 Gravity g;
+int turn_r = 0, turn_l = 0, turn_pj = 0;
 
 void reshape(GLsizei w, GLsizei h) {
   glViewport(0, 0, w, h);
@@ -10,62 +11,76 @@ void reshape(GLsizei w, GLsizei h) {
   glLoadIdentity();
 }
 
+void draw_square(Point p1, Point p2, Point p3, Point p4){
+  glBegin(GL_LINES);
+    glVertex2f(p1.x, p1.y);
+    glVertex2f(p2.x, p2.y);
+  glEnd();
+  glBegin(GL_LINES);
+    glVertex2f(p2.x, p2.y);
+    glVertex2f(p4.x, p4.y);
+  glEnd();
+  glBegin(GL_LINES);
+    glVertex2f(p1.x, p1.y);
+    glVertex2f(p3.x, p3.y);
+  glEnd();
+  glBegin(GL_LINES);
+    glVertex2f(p3.x, p3.y);
+    glVertex2f(p4.x, p4.y);
+  glEnd();
+}
+
 void draw(){
 
-  int sb = 20; // size_block
   glColor3f(0.0f, 1.0f, 0.0f);
   for( int i = 0; i < d.world.obstacles.size(); ++i ){
-    int px = d.world.obstacles[i].x, j = d.world.obstacles[i].y;
-    
-    glBegin(GL_LINES);
-      glVertex2f(px*sb, SIZE_SCR2-(j*sb));
-      glVertex2f((px+1)*sb, SIZE_SCR2-(j*sb));
-    glEnd();
-    glBegin(GL_LINES);
-      glVertex2f(px*sb, SIZE_SCR2-((j+1)*sb));
-      glVertex2f((px+1)*sb, SIZE_SCR2-((j+1)*sb));
-    glEnd();
-    glBegin(GL_LINES);
-      glVertex2f(px*sb, SIZE_SCR2-(j*sb));
-      glVertex2f(px*sb, SIZE_SCR2-((j+1)*sb));
-    glEnd();
-    glBegin(GL_LINES);
-      glVertex2f((px+1)*sb, SIZE_SCR2-(j*sb));
-      glVertex2f((px+1)*sb, SIZE_SCR2-((j+1)*sb));
-    glEnd();
+    Point p1 = d.world.obstacles[i].points[0], 
+          p2 = d.world.obstacles[i].points[1],
+          p3 = d.world.obstacles[i].points[2], 
+          p4 = d.world.obstacles[i].points[3];
+    draw_square(p1,p2,p3,p4);
   }
   
   glColor3f(.5f, .5f, .5f);
-  int px = d.world.tripi.x, j = d.world.tripi.y;
-  glBegin(GL_LINES);
-    glVertex2f(px*sb, (j*sb));
-    glVertex2f((px+1)*sb, (j*sb));
-  glEnd();
-  glBegin(GL_LINES);
-    glVertex2f(px*sb, ((j+1)*sb));
-    glVertex2f((px+1)*sb, ((j+1)*sb));
-  glEnd();
-  glBegin(GL_LINES);
-    glVertex2f(px*sb, (j*sb));
-    glVertex2f(px*sb, ((j+1)*sb));
-  glEnd();
-  glBegin(GL_LINES);
-    glVertex2f((px+1)*sb, (j*sb));
-    glVertex2f((px+1)*sb, ((j+1)*sb));
-  glEnd();
-  
+  Point p1 = d.world.tripi.points[0], 
+        p2 = d.world.tripi.points[1],
+        p3 = d.world.tripi.points[2], 
+        p4 = d.world.tripi.points[3];
+  draw_square(p1,p2,p3,p4);
 }
 
 void keyboard(unsigned char key, int x, int y) {
-  if(key == 'q') d.world_init();
+  if(key == 't') d.world_init();
+  if(key == 'd' && !turn_r) turn_r = 1;
+  if(key == 'a' && !turn_l) turn_l = 1;
   glutPostRedisplay();
 }
 
+void animate(){
+  if(turn_r){
+    d.rotate_world(1);
+    glutPostRedisplay();
+    for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
+    turn_r++;
+    turn_r %= 16;
+    if(!turn_r) d.rotate_board(0);
+  }
+  
+  if(turn_l){
+    d.rotate_world(0);
+    glutPostRedisplay();
+    for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
+    turn_l++;
+    turn_l %= 16;
+    if(!turn_l) d.rotate_board(1);
+  }
+}
+
 void specialKeys(int key, int x, int y) {
-  //if(key == GLUT_KEY_UP) p_translate(0);
-  //if(key == GLUT_KEY_DOWN) p_translate(1);
-  if(key == GLUT_KEY_LEFT) d.move_pj(2);  
-  if(key == GLUT_KEY_RIGHT) d.move_pj(1);
+  if(key == GLUT_KEY_UP && !turn_l && !turn_r) d.move_pj(3);
+  if(key == GLUT_KEY_DOWN && !turn_l && !turn_r) d.move_pj(4);
+  if(key == GLUT_KEY_LEFT && !turn_l && !turn_r) d.move_pj(2);
+  if(key == GLUT_KEY_RIGHT && !turn_l && !turn_r) d.move_pj(1);
   glutPostRedisplay();
 }
 
@@ -79,5 +94,6 @@ void display(void) {
   gluOrtho2D(0,SIZE_SCR,0,SIZE_SCR2);
   draw();
   
+  //sleep(5);
   glutSwapBuffers();
 }

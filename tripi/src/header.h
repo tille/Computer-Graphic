@@ -26,3 +26,4 @@ using namespace std;
 #define SIZE_SCR 800
 #define SIZE_SCR2 800
 #define pb push_back
+#define sb 20
