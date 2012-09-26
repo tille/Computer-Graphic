@@ -36,7 +36,7 @@ void Driver::world_init(){
 }
 
 bool Driver::collision(int x, int y){
-  //if( x < 0 || x>39 ) return true;
-  //if( world.board[x][39-y] == '1' ) return true;
+  if( x < 0 || x>39 ) return true;
+  if( world.board[x][39-y] == '1' ) return true;
   return false;
 }

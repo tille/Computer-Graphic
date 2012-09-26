@@ -31,7 +31,6 @@ void draw_square(Point p1, Point p2, Point p3, Point p4){
 }
 
 void draw(){
-
   glColor3f(0.0f, 1.0f, 0.0f);
   for( int i = 0; i < d.world.obstacles.size(); ++i ){
     Point p1 = d.world.obstacles[i].points[0], 
