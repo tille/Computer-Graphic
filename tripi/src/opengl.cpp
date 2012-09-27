@@ -25,9 +25,7 @@ void physic(){
   if(right_press) vel += 0.3;
 }
 
-void draw(){
-  physic();
-  
+void draw(){  
   glColor3f(0.0f, 1.0f, 0.0f);
   for( int i = 0; i < d.world.obstacles.size(); ++i ){
     Point p1 = d.world.obstacles[i].points[0], 
@@ -79,6 +77,8 @@ void animate(){
     turn_l %= 16;
     if(!turn_l) if(!d.collision(4)) fall = 1;
   }
+  
+  physic();
 }
 
 void specialKeys(int key, int x, int y) {
