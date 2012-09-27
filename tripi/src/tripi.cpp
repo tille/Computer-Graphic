@@ -16,6 +16,7 @@ int main (int argc, char** argv) {
   glutCreateWindow ("Tripi Adventures");        // Create display window.
   glutReshapeFunc(reshape);                     // Is called for resize the window.
   glutSpecialFunc(specialKeys);                 // Handler for the specialKeys.
+  glutSpecialUpFunc(specialKeys_up);           // Handler for the specialKeys.
   glutKeyboardFunc(keyboard);                   // Handler for the normal keys.
   
   glutDisplayFunc (display);                    // Send graphics to display window.

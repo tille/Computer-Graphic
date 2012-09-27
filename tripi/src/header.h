@@ -1,4 +1,5 @@
 using namespace std;
+#include <sys/time.h>
 #include <algorithm>
 #include <iostream>
 #include <iterator>

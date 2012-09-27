@@ -2,33 +2,31 @@
 
 class Pj {
 public:
-  int lives, posx, posy;
+  int lives;
   Point points[5];
   void rotate(int dir);
-  void skip();
+  void skip(int dir);
   void set_coordinates(int x1,int y1,int z1);
 };
 
 void Pj::set_coordinates(int x, int y, int z){
-  lives = z, posx = posy = 0;
-  points[0].set_point( x, y+sb );
-  points[1].set_point( x+sb, y+sb );
-  points[2].set_point( x, y );
-  points[3].set_point( x+sb, y );  
+  lives = z;
+  points[0].set_point( x+3, y+sb-3 );
+  points[1].set_point( x+sb-3, y+sb-3 );
+  points[2].set_point( x+3, y+3 );
+  points[3].set_point( x+sb-3, y+3 );  
 }
 
-void Pj::skip(){
-  points[0].set_point( posx*sb, posy*sb+sb );
-  points[1].set_point( (posx*sb)+sb, (posy*sb)+sb );
-  points[2].set_point( posx*sb, posy*sb );
-  points[3].set_point( (posx*sb)+sb, (posy*sb) );    
+void Pj::skip(int dir){
+  for( int j = 0; j < 4; ++j ){
+    if(dir==1) points[j].x += 10;
+    if(dir==2) points[j].x -= 10;
+    if(dir==3) points[j].y += 10;
+    if(dir==4) points[j].y -= 10;
+  }
 }
 
 void Pj::rotate(int dir){
-  int temp_x = posx, temp_y = posy;
-  if(!dir) posx = temp_y, posy = 39-temp_x;
-  else posx = 39-temp_y, posy = temp_x;
-
   for( int j = 0; j < 4; ++j ){
     points[j].x -= 400;
     points[j].y -= 400;
