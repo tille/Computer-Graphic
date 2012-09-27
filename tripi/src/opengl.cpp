@@ -1,5 +1,5 @@
 Driver d;
-int turn_r = 0, turn_l = 0, right_press = 0, fall = 0;
+int turn_r = 0, turn_l = 0, right_press = 0, fall = 0, jump = 0;
 double vel;
 
 void draw_square(Point p1, Point p2, Point p3, Point p4){
@@ -22,7 +22,7 @@ void draw_square(Point p1, Point p2, Point p3, Point p4){
 }
 
 void physic(){
-  if(right_press) vel += 0.3;
+  if(right_press) vel += 0.01;
 }
 
 void draw(){  
@@ -43,15 +43,18 @@ void draw(){
   draw_square(p1,p2,p3,p4);  
 }
 
-void keyboard(unsigned char key, int x, int y) {
-  if(key == 't') d.world_init();
-  if(key == 'd' && !turn_r) turn_r = 1;
-  if(key == 'a' && !turn_l) turn_l = 1;
-  
-  glutPostRedisplay();
-}
-
 void animate(){
+  if(jump){
+    if(!d.collision(3)){
+      d.world.tripi.skip(3);
+      glutPostRedisplay();
+      for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
+      jump++;
+      jump %= 10;
+    }else jump = 0;
+    if(!jump) fall = 1;
+  }
+  
   if(fall){
     if(!d.collision(4)){
       d.world.tripi.skip(4);
@@ -77,12 +80,19 @@ void animate(){
     turn_l %= 16;
     if(!turn_l) if(!d.collision(4)) fall = 1;
   }
-  
   physic();
 }
 
+void keyboard(unsigned char key, int x, int y) {
+  if(key == 't') d.world_init();
+  if(key == 'd' && !turn_r) turn_r = 1;
+  if(key == 'a' && !turn_l) turn_l = 1;
+  
+  glutPostRedisplay();
+}
+
 void specialKeys(int key, int x, int y) {
-  if(key == GLUT_KEY_UP && !turn_l && !turn_r) d.move_pj(3);
+  if(key == GLUT_KEY_UP && !turn_l && !turn_r) jump = 1;
   if(key == GLUT_KEY_DOWN && !turn_l && !turn_r) d.move_pj(4);
   if(key == GLUT_KEY_LEFT && !turn_l && !turn_r) d.move_pj(2);
   if(key == GLUT_KEY_RIGHT && !turn_l && !turn_r){ 
