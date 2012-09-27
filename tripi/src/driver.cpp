@@ -4,18 +4,17 @@
 class Driver {
 public:
   World world;
-  void move_pj(int pos);
+  void move_pj(int pos, double vel);
   void rotate_world(int dir);
-  void rotate_board(int dir);
   void world_init();
-  bool collision(int dir);
+  bool collision(int dir,double vel);
 };
 
-void Driver::move_pj(int pos) {
-  if(pos==1 && !collision(1)) world.tripi.skip(1);
-  if(pos==2 && !collision(2)) world.tripi.skip(2);  
-  if(pos==3 && !collision(3)) world.tripi.skip(3);
-  if(pos==4 && !collision(4)) world.tripi.skip(4);  
+void Driver::move_pj(int pos,double vel) {
+  if(pos==1 && !collision(1,vel)) world.tripi.skip(1,vel);
+  if(pos==2 && !collision(2,vel)) world.tripi.skip(2,vel);  
+  if(pos==3 && !collision(3,vel)) world.tripi.skip(3,vel);
+  if(pos==4 && !collision(4,vel)) world.tripi.skip(4,vel);  
 }
 
 void Driver::rotate_world(int dir){
@@ -27,11 +26,11 @@ void Driver::world_init(){
   world.init();
 }
 
-bool Driver::collision(int dir){
+bool Driver::collision(int dir,double vel){
   Point p[4];
   for( int i = 0; i < 4; ++i ) p[i] = world.tripi.points[i];
-  if(dir==1) for( int i = 0; i < 4; ++i ) p[i].x += 10;
-  if(dir==2) for( int i = 0; i < 4; ++i ) p[i].x -= 10;
+  if(dir==1) for( int i = 0; i < 4; ++i ) p[i].x += vel;
+  if(dir==2) for( int i = 0; i < 4; ++i ) p[i].x -= vel;
   if(dir==3) for( int i = 0; i < 4; ++i ) p[i].y += 10;
   if(dir==4) for( int i = 0; i < 4; ++i ) p[i].y -= 10;
 

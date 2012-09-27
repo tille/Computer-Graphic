@@ -5,7 +5,7 @@ public:
   int lives;
   Point points[5];
   void rotate(int dir);
-  void skip(int dir);
+  void skip(int dir,double vel);
   void set_coordinates(int x1,int y1,int z1);
 };
 
@@ -17,10 +17,10 @@ void Pj::set_coordinates(int x, int y, int z){
   points[3].set_point( x+sb-3, y+3 );  
 }
 
-void Pj::skip(int dir){
+void Pj::skip(int dir, double vel){
   for( int j = 0; j < 4; ++j ){
-    if(dir==1) points[j].x += 10;
-    if(dir==2) points[j].x -= 10;
+    if(dir==1) points[j].x += vel;
+    if(dir==2) points[j].x -= vel;
     if(dir==3) points[j].y += 10;
     if(dir==4) points[j].y -= 10;
   }

@@ -1,6 +1,19 @@
 Driver d;
 int turn_r = 0, turn_l = 0, right_press = 0, fall = 0, jump = 0;
 double vel;
+bool* keyStates = new bool[256];
+
+void keyOperations (void) {  
+  if (keyStates[102] && !turn_l && !turn_r){ 
+    d.move_pj(1,5);
+    right_press = 1;
+  }
+  if (keyStates[100] && !turn_l && !turn_r){ 
+    d.move_pj(2,5);
+    right_press = 1;
+  }
+  if(keyStates[101] && !turn_l && !turn_r && !fall && !jump) jump = 1;
+}
 
 void draw_square(Point p1, Point p2, Point p3, Point p4){
   glBegin(GL_LINES);
@@ -22,7 +35,7 @@ void draw_square(Point p1, Point p2, Point p3, Point p4){
 }
 
 void physic(){
-  if(right_press) vel += 0.01;
+  if(right_press) vel += 0.0001;
 }
 
 void draw(){  
@@ -45,8 +58,8 @@ void draw(){
 
 void animate(){
   if(jump){
-    if(!d.collision(3)){
-      d.world.tripi.skip(3);
+    if(!d.collision(3,0)){
+      d.world.tripi.skip(3,0);
       glutPostRedisplay();
       for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
       jump++;
@@ -56,8 +69,8 @@ void animate(){
   }
   
   if(fall){
-    if(!d.collision(4)){
-      d.world.tripi.skip(4);
+    if(!d.collision(4,0)){
+      d.world.tripi.skip(4,0);
       glutPostRedisplay();
       for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
     }else fall = 0;
@@ -78,7 +91,7 @@ void animate(){
     for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
     turn_l++;
     turn_l %= 16;
-    if(!turn_l) if(!d.collision(4)) fall = 1;
+    if(!turn_l) fall = 1;
   }
   physic();
 }
@@ -92,21 +105,16 @@ void keyboard(unsigned char key, int x, int y) {
 }
 
 void specialKeys(int key, int x, int y) {
-  if(key == GLUT_KEY_UP && !turn_l && !turn_r) jump = 1;
-  if(key == GLUT_KEY_DOWN && !turn_l && !turn_r) d.move_pj(4);
-  if(key == GLUT_KEY_LEFT && !turn_l && !turn_r) d.move_pj(2);
-  if(key == GLUT_KEY_RIGHT && !turn_l && !turn_r){ 
-    right_press = 1;
-    d.move_pj(1);
-  }
+  keyStates[key] = true;
   
-  if(!d.collision(4)) fall = 1;
+  if(!d.collision(4,0)) fall = 1;
   glutPostRedisplay();
 }
 
 void specialKeys_up(int key, int x, int y) {
-  if(key == GLUT_KEY_RIGHT && !turn_l && !turn_r){ 
-    cout << vel << endl;
+  keyStates[key] = false;
+  if(key == GLUT_KEY_RIGHT || key == GLUT_KEY_LEFT){ 
+    //cout << vel << endl;
     right_press = vel = 0;
   }
   glutPostRedisplay();
@@ -129,6 +137,7 @@ void display(void) {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluOrtho2D(0,SIZE_SCR,0,SIZE_SCR2);
+  keyOperations();
   draw();
 
   glutSwapBuffers();
