@@ -4,7 +4,6 @@
 #include <GLUT/glut.h>
 
 #include "driver.cpp"
-#include "gravity.cpp"
 #include "opengl.cpp"
 
 int main (int argc, char** argv) {

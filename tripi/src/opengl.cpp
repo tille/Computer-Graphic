@@ -1,6 +1,5 @@
 Driver d;
-Gravity g;
-int turn_r = 0, turn_l = 0, right_press = 0;
+int turn_r = 0, turn_l = 0, right_press = 0, fall = 0;
 double vel;
 
 void draw_square(Point p1, Point p2, Point p3, Point p4){
@@ -50,17 +49,26 @@ void keyboard(unsigned char key, int x, int y) {
   if(key == 't') d.world_init();
   if(key == 'd' && !turn_r) turn_r = 1;
   if(key == 'a' && !turn_l) turn_l = 1;
+  
   glutPostRedisplay();
 }
 
 void animate(){
+  if(fall){
+    if(!d.collision(4)){
+      d.world.tripi.skip(4);
+      glutPostRedisplay();
+      for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
+    }else fall = 0;
+  }
+  
   if(turn_r){
     d.rotate_world(1);
     glutPostRedisplay();
     for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
     turn_r++;
     turn_r %= 16;
-    if(!turn_r) d.rotate_board(0);
+    if(!turn_r) fall = 1;
   }
 
   if(turn_l){
@@ -69,7 +77,7 @@ void animate(){
     for( int i=0; i < 1000; ++i ) for( int j = 0; j < 10000; ++j ){}
     turn_l++;
     turn_l %= 16;
-    if(!turn_l) d.rotate_board(1);
+    if(!turn_l) if(!d.collision(4)) fall = 1;
   }
 }
 
@@ -81,6 +89,8 @@ void specialKeys(int key, int x, int y) {
     right_press = 1;
     d.move_pj(1);
   }
+  
+  if(!d.collision(4)) fall = 1;
   glutPostRedisplay();
 }
 

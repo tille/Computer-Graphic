@@ -23,10 +23,6 @@ void Driver::rotate_world(int dir){
   world.tripi.rotate(dir);
 }
 
-void Driver::rotate_board(int dir){
-  world.board_rotate(dir);
-}
-
 void Driver::world_init(){
   world.init();
 }
