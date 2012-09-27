@@ -34,10 +34,6 @@ void draw_square(Point p1, Point p2, Point p3, Point p4){
   glEnd();
 }
 
-void physic(){
-  if(right_press) vel += 0.0001;
-}
-
 void draw(){  
   glColor3f(0.0f, 1.0f, 0.0f);
   for( int i = 0; i < d.world.obstacles.size(); ++i ){
@@ -93,20 +89,18 @@ void animate(){
     turn_l %= 16;
     if(!turn_l) fall = 1;
   }
-  physic();
+  if(right_press) vel += 0.0001;
 }
 
 void keyboard(unsigned char key, int x, int y) {
   if(key == 't') d.world_init();
   if(key == 'd' && !turn_r) turn_r = 1;
   if(key == 'a' && !turn_l) turn_l = 1;
-  
   glutPostRedisplay();
 }
 
 void specialKeys(int key, int x, int y) {
   keyStates[key] = true;
-  
   if(!d.collision(4,0)) fall = 1;
   glutPostRedisplay();
 }
