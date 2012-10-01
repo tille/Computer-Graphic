@@ -19,3 +19,6 @@ Challenge 3 - Polygon visualization 2D
 Challenge 4 - Polygon visualization (3D proyected to 2D)
 -----------
 [![Transformations 3D](https://github.com/Tille/Computer-Graphic/raw/master/challenge4/screenshots/ss1.png)](https://github.com/Tille/Computer-Graphic/blob/master/challenge4/src/challenge4.cpp)
+
+Challenge 6 - Sphere and ilumination with JMonkey
+-----------
