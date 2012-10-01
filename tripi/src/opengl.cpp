@@ -94,8 +94,8 @@ void animate(){
 
 void keyboard(unsigned char key, int x, int y) {
   if(key == 't') d.world_init();
-  if(key == 'd' && !turn_r) turn_r = 1;
-  if(key == 'a' && !turn_l) turn_l = 1;
+  if(key == 'd' && !turn_r && !fall) turn_r = 1;
+  if(key == 'a' && !turn_l && !fall) turn_l = 1;
   glutPostRedisplay();
 }
 
