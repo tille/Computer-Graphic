@@ -22,3 +22,4 @@ Challenge 4 - Polygon visualization (3D proyected to 2D)
 
 Challenge 6 - Sphere and ilumination with JMonkey
 -----------
+[![Transformations 3D](https://github.com/Tille/Computer-Graphic/blob/master/Challenge6/screenshots/sphere.png)](https://github.com/Tille/Computer-Graphic/blob/master/Challenge6/src/Main.java)
