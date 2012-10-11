@@ -38,7 +38,7 @@ void World::rotate(int dir) {
 }
 
 void World::init() {
-  freopen("input/1.in","r",stdin);
+  freopen("input/2.in","r",stdin);
   string line;
   
   for( int j = 0; cin >> line; ++j ){
