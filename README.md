@@ -27,3 +27,11 @@ challenge 6 - Sphere and ilumination with JMonkey
 Partial - Bezier Surfaces
 -------
 [![bezier](https://github.com/Tille/Computer-Graphic/raw/master/partial/screenshots/1.png)](https://github.com/Tille/Computer-Graphic/blob/master/partial/src/main.cpp)
+
+[![bezier](https://github.com/Tille/Computer-Graphic/raw/master/partial/screenshots/2.png)](https://github.com/Tille/Computer-Graphic/blob/master/partial/src/main.cpp)
+
+[![bezier](https://github.com/Tille/Computer-Graphic/raw/master/partial/screenshots/3.png)](https://github.com/Tille/Computer-Graphic/blob/master/partial/src/main.cpp)
+
+[![bezier](https://github.com/Tille/Computer-Graphic/raw/master/partial/screenshots/4.png)](https://github.com/Tille/Computer-Graphic/blob/master/partial/src/main.cpp)
+
+[![bezier](https://github.com/Tille/Computer-Graphic/raw/master/partial/screenshots/5.png)](https://github.com/Tille/Computer-Graphic/blob/master/partial/src/main.cpp)
