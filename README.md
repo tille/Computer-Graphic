@@ -23,3 +23,7 @@ challenge 4 - Polygon visualization (3D proyected to 2D)
 challenge 6 - Sphere and ilumination with JMonkey
 -----------
 [![Transformations 3D](https://github.com/Tille/Computer-Graphic/raw/master/challenge6/screenshots/ss1.png)](https://github.com/Tille/Computer-Graphic/blob/master/challenge6/src/Main.java)
+
+Partial - Bezier Surfaces
+-------
+[![bezier](https://github.com/Tille/Computer-Graphic/raw/master/partial/screenshots/1.png)](https://github.com/Tille/Computer-Graphic/blob/master/partial/src/main.cpp)
